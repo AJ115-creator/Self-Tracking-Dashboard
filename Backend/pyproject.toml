@@ -1,7 +1,7 @@
 [project]
-name = "backend"
+name = "backend-of-Self-Action-Tracking-Dashboard"
 version = "0.1.0"
-description = "Add your description here"
+description = "Backend of the self action Tracking dashboard"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

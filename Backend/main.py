@@ -6,7 +6,7 @@ from routes import auth, tracking, analytics
 settings = get_settings()
 
 app = FastAPI(
-    title="Vigility Analytics Dashboard API",
+    title="Self Action Analytics Dashboard API",
     description="Backend API for product analytics dashboard",
     version="1.0.0"
 )
@@ -26,7 +26,7 @@ app.include_router(analytics.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Vigility Analytics Dashboard API", "status": "running"}
+    return {"message": "Self Action Tracking Analytics Dashboard API", "status": "running"}
 
 
 @app.get("/health")
