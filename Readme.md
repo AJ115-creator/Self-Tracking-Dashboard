@@ -87,6 +87,31 @@ uv run python seed.py
 
 Creates 55 users and 500 click events across all age groups and genders.
 
+## Dashboard Guide
+
+### Stats Cards (Top Row)
+- **Total Clicks**: Sum of all tracked interactions across all features
+- **Top Feature**: Most clicked feature with its click count
+- **Daily Average**: Mean clicks per day over the selected period
+- **Features Tracked**: Number of unique UI elements being tracked
+
+### Filters
+- **Date Range Picker**: Filter analytics to a specific time period (both dates required)
+- **Age Group**: Filter by user demographics (`<18`, `18-40`, `>40`)
+- **Gender**: Filter by user gender (`Male`, `Female`, `Other`)
+- **Refresh Button**: Manually re-fetch analytics data from the server
+- **Clear Filter Chip**: When a bar is selected, click the "×" chip to clear the feature filter
+
+### Charts
+- **Bar Chart (Feature Clicks)**: Shows click count per tracked feature. **Click any bar** to filter the line chart to show only that feature's daily trend
+- **Line Chart (Daily Trend)**: Displays clicks over time. Shows all features combined by default, or a single feature when a bar is selected
+
+### Meta-Analytics
+The dashboard tracks its own usage—every filter change, chart interaction, and button click is recorded as an event. This demonstrates the tracking system in action.
+
+### Filter Persistence
+Filter selections are saved to cookies per user. When you return, your last filter configuration is automatically restored.
+
 ## Scaling to 1M Writes/Min
 
 ### Frontend

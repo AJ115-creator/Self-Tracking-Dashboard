@@ -228,7 +228,7 @@ export function Dashboard() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-6">
           <ChartCard
             title="Feature Clicks"
             subtitle="Click on a bar to filter daily trend"
