@@ -93,13 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
     localStorage.removeItem(STORAGE_KEY_TOKEN)
     localStorage.removeItem(STORAGE_KEY_USER)
-
-    // Optional: Call backend logout if needed, but JWT is stateless
-    // api.post('/auth/logout').catch(() => {}) 
-
-    // Redirect logic is usually handled by the protected route wrapper, 
-    // but in case we are in a component that needs immediate redirection:
-    window.location.href = '/login'
+    // ProtectedRoute will handle redirect to /login when user becomes null
   }
 
   return (
