@@ -37,7 +37,7 @@ async def register(user_data: UserRegister):
             "gender": user_data.gender
         }
 
-        profile_response = admin_supabase.table("profiles").insert(profile_data).execute()
+        profile_response = admin_supabase.table("profiles").upsert(profile_data, on_conflict="id").execute()
 
         if not profile_response.data:
             # Rollback: delete auth user if profile creation fails
