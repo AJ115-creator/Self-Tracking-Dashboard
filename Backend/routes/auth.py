@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
-from models import UserRegister, UserLogin, AuthResponse, PasswordResetRequest
+from models import UserRegister, UserLogin, AuthResponse, PasswordResetRequest, PasswordUpdate
 from config import get_supabase_client, get_supabase_admin_client, get_settings
+from supabase import create_client
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -135,3 +136,29 @@ async def forgot_password(request: PasswordResetRequest):
     except Exception as e:
         # Still return success to prevent email enumeration
         return {"message": "If an account exists, a password reset email has been sent."}
+
+
+@router.post("/reset-password")
+async def reset_password(data: PasswordUpdate):
+    """
+    Update user password using recovery token from Supabase.
+    """
+    settings = get_settings()
+
+    try:
+        # Create a new client with the recovery access token
+        supabase = create_client(settings.supabase_url, settings.supabase_key)
+
+        # Set the session with the recovery token
+        supabase.auth.set_session(data.access_token, "")
+
+        # Update the user's password
+        supabase.auth.update_user({"password": data.new_password})
+
+        return {"message": "Password updated successfully"}
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Failed to reset password. The link may have expired."
+        )

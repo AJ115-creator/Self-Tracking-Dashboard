@@ -34,7 +34,7 @@ wheels = [
 ]
 
 [[package]]
-name = "backend"
+name = "backend-of-self-action-tracking-dashboard"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
