@@ -76,9 +76,9 @@ export function Login() {
               />
               Remember me
             </label>
-            <a href="#" className="text-orange-400 hover:text-orange-300 transition-colors">
+            <Link to="/forgot-password" className="text-orange-400 hover:text-orange-300 transition-colors">
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           <SubmitButton type="submit" isLoading={isLoading}>

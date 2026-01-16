@@ -16,6 +16,10 @@ class UserLogin(BaseModel):
     password: str
 
 
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+
+
 class AuthResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"

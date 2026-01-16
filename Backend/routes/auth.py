@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
-from models import UserRegister, UserLogin, AuthResponse
-from config import get_supabase_client, get_supabase_admin_client
+from models import UserRegister, UserLogin, AuthResponse, PasswordResetRequest
+from config import get_supabase_client, get_supabase_admin_client, get_settings
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -110,3 +110,28 @@ async def login(credentials: UserLogin):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
+
+
+@router.post("/forgot-password")
+async def forgot_password(request: PasswordResetRequest):
+    """
+    Send password reset email via Supabase Auth.
+    """
+    supabase = get_supabase_client()
+    settings = get_settings()
+
+    try:
+        # Supabase sends reset email with link to redirect_to URL
+        supabase.auth.reset_password_email(
+            request.email,
+            options={
+                "redirect_to": f"{settings.frontend_url}/reset-password"
+            }
+        )
+
+        # Always return success to prevent email enumeration
+        return {"message": "If an account exists, a password reset email has been sent."}
+
+    except Exception as e:
+        # Still return success to prevent email enumeration
+        return {"message": "If an account exists, a password reset email has been sent."}
