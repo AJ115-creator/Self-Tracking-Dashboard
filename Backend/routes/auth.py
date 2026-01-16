@@ -61,9 +61,15 @@ async def register(user_data: UserRegister):
     except HTTPException:
         raise
     except Exception as e:
+        error_msg = str(e)
+        # Handle common Supabase auth errors
+        if "already registered" in error_msg.lower() or "already exists" in error_msg.lower():
+            error_msg = "Email already registered"
+        elif "422" in error_msg:
+            error_msg = "Email already registered or invalid"
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
+            detail=error_msg
         )
 
 
